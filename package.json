@@ -1,0 +1,24 @@
+{
+  "name": "web-crawler-sb",
+  "version": "1.0.0",
+  "description": "Web crawler example to StackBuilders",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SiilverShiine/Web-Crawler-SB.git"
+  },
+  "author": "Francisco Encalada",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SiilverShiine/Web-Crawler-SB/issues"
+  },
+  "homepage": "https://github.com/SiilverShiine/Web-Crawler-SB#readme",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "cheerio": "^1.0.0-rc.12",
+    "jest": "^29.6.2"
+  }
+}
