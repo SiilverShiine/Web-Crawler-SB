@@ -47,10 +47,15 @@ async function getEntries() {
     return entries;
 }
 
-// Function which filters the entries relative to five words (entries > 5 || entries <= 5)
+// Function which filters the entries relative to five words (length > 5 || length <= 5)
 function filterEntries(entries) {
-    const moreThanFive = entries.filter(entry => entry.title.split(" ").length > 5);
-    const lessThanOrEqualThanFive = entries.filter(entry => entry.title.split(" ").length <= 5);
+    const moreThanFive = entries.filter(
+        entry => entry.title.split(" ").length > 5
+    );
+
+    const lessThanOrEqualThanFive = entries.filter(
+        entry => entry.title.split(" ").length <= 5
+    );
 
     return [moreThanFive, lessThanOrEqualThanFive];
 }
