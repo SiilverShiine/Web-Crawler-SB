@@ -8,12 +8,15 @@ async function getEntries() {
     const data = cheerio.load(axiosResponse.data);
 
     const entries = [];
+
+    //Selectors to get data
     const numberOfOrderSelector = ".rank";
     const titleSelector = ".titleline > a:nth-child(1)";
     const pointsSelector = ".score";
     const numberOfCommentsSelector = ".subline > a:nth-child(6)";
     const subLineSelector = ".subline"
 
+    // Loop to insert entries' properties
     data(subLineSelector).each((index, element) => {
         const numberOfOrder = data(numberOfOrderSelector).eq(index);
         const titleElement = data(titleSelector).eq(index);
@@ -23,10 +26,10 @@ async function getEntries() {
         let points = 0;
         let numberOfComments = 0;
 
+        // Casting to number the points', and numberOfComments' strings
         if (pointsElement.text() !== null) {
             points = parseInt(pointsElement.text().match(/\d+/)[0]);
         }
-
         if (commentsElement.text() !== "discuss") {
             numberOfComments = parseInt(commentsElement.text().match(/\d+/)[0]);
         }
@@ -44,4 +47,12 @@ async function getEntries() {
     return entries;
 }
 
-module.exports = {getEntries};
+// Function which filters the entries relative to five words (entries > 5 || entries <= 5)
+function filterEntries(entries) {
+    const moreThanFive = entries.filter(entry => entry.title.split(" ").length > 5);
+    const lessThanOrEqualThanFive = entries.filter(entry => entry.title.split(" ").length <= 5);
+
+    return [moreThanFive, lessThanOrEqualThanFive];
+}
+
+module.exports = {getEntries, filterEntries};

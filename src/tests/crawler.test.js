@@ -1,5 +1,5 @@
 // Import the functions to test
-const {getEntries} = require('../crawler');
+const {getEntries, filterEntries} = require('../crawler');
 
 describe("Returns correctly the entries", () => {
     test("The function must return the entries", async () => {
@@ -32,6 +32,24 @@ describe("Returns correctly the entries", () => {
     });
 });
 
+describe("Filter", () => {
+    it("Filters the entries with more than five words in the title", async () => {
+        const entries = await getEntries();
+        const [filteredEntries, _] = filterEntries(entries)
 
+        filteredEntries.forEach(entry =>{
+           const titleWords = entry.title.split(" ");
+           expect(titleWords.length).toBeGreaterThan(5);
+        });
+    });
 
+    it('Filters the entries with less than or equal to five words in the title', async () => {
+        const entries = await getEntries();
+        const [_, filteredEntries] = filterEntries(entries)
 
+        filteredEntries.forEach(entry => {
+            const titleWords = entry.title.split(" ");
+            expect(titleWords.length).toBeLessThanOrEqual(5);
+        });
+    });
+});
