@@ -23,12 +23,12 @@ async function getEntries() {
         const pointsElement = data(element).find(pointsSelector);
         const commentsElement = data(element).find(numberOfCommentsSelector);
 
-        let points = 0;
+        let entryPoints = 0;
         let numberOfComments = 0;
 
-        // Casting to number the points', and numberOfComments' strings
+        // Casting to number the entryPoints', and numberOfComments' strings
         if (pointsElement.text() !== null) {
-            points = parseInt(pointsElement.text().match(/\d+/)[0]);
+            entryPoints = parseInt(pointsElement.text().match(/\d+/)[0]);
         }
         if (commentsElement.text() !== "discuss") {
             numberOfComments = parseInt(commentsElement.text().match(/\d+/)[0]);
@@ -37,7 +37,7 @@ async function getEntries() {
         const entry = {
             numberOfOrder: numberOfOrder.text(),
             title: titleElement.text(),
-            points: points,
+            entryPoints: entryPoints,
             numberOfComments: numberOfComments,
         };
 
@@ -55,4 +55,21 @@ function filterEntries(entries) {
     return [moreThanFive, lessThanOrEqualThanFive];
 }
 
-module.exports = {getEntries, filterEntries};
+function orderByComments(entries) {
+    entries.sort(
+        (a, b) => b.numberOfComments - a.numberOfComments
+    )
+
+    return entries;
+}
+
+function orderByPoints(entries) {
+    entries.sort(
+        (a, b) => b.entryPoints - a.entryPoints
+    )
+
+    return entries;
+}
+
+
+module.exports = {getEntries, filterEntries, orderByComments, orderByPoints};
